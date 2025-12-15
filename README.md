@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SOD Chatbot 🤖
 
-## Getting Started
+Chatbot ผู้ช่วยสำหรับเว็บไซต์ **sodbd2.pics** ฝ่ายโสตทัศนศึกษา โรงเรียนบดินทรเดชา (สิงห์ สิงหเสนี) ๒
 
-First, run the development server:
+## ✨ Features
+
+- 💬 **AI Chatbot** - ขับเคลื่อนด้วย Google Gemini 2.0 Flash
+- 🔐 **Firebase Auth** - เข้าสู่ระบบด้วย Google
+- 👥 **User Approval System** - ต้องได้รับการอนุมัติก่อนใช้งาน
+- ⚡ **Rate Limiting** - จำกัดจำนวนคำถามด้วย Upstash Redis
+- 🛠️ **Admin Dashboard** - จัดการผู้ใช้และการตั้งค่าระบบ
+- 🎨 **Modern UI** - ดีไซน์ minimal สไตล์ ChatGPT/Gemini
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **AI**: Google Gemini 2.0 Flash
+- **Auth & Database**: Firebase (Auth + Firestore)
+- **Rate Limiting**: Upstash Redis
+
+## 📦 Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone repository
+git clone https://github.com/yourusername/nextjs-boilerplate.git
+cd nextjs-boilerplate
+
+# Install dependencies
+bun install
+
+# Copy environment variables
+cp .env.example .env.local
+# Edit .env.local with your credentials
+
+# Run development server
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ดูตัวอย่างใน `.env.example`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|----------|-------------|
+| `GOOGLE_API_KEY` | Google Gemini API Key |
+| `NEXT_PUBLIC_FIREBASE_*` | Firebase config (Client) |
+| `UPSTASH_REDIS_*` | Upstash Redis credentials |
 
-## Learn More
+## 🔥 Firebase Setup
 
-To learn more about Next.js, take a look at the following resources:
+1. สร้างโปรเจกต์ใน [Firebase Console](https://console.firebase.google.com/)
+2. เปิดใช้งาน **Authentication** > **Google Provider**
+3. สร้าง **Firestore Database**
+4. ตั้ง Firestore Rules:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read: if request.auth != null && 
+        (request.auth.uid == userId || 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+    match /settings/{document} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚢 Deploy on Vercel
 
-## Deploy on Vercel
+1. Push โค้ดไปยัง GitHub
+2. Import โปรเจกต์ใน [Vercel](https://vercel.com/)
+3. เพิ่ม Environment Variables ใน Settings
+4. Deploy!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License
