@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <h1>Next Motion UI</h1>
+  <p>A Next.js 16 starter kit with animated UI components — Aceternity-style sparkles, spotlight, flip-words, typewriter effects, and particle animations powered by <strong>framer-motion</strong> and <strong>tsparticles</strong>.</p>
+  <p>
+    <a href="#components">Components</a> ·
+    <a href="#getting-started">Getting Started</a> ·
+    <a href="#tech-stack">Tech Stack</a> ·
+    <a href="#project-structure">Structure</a>
+  </p>
+  <br/>
+</div>
 
-## Getting Started
+---
 
-First, run the development server:
+## ✨ Components
+
+| Component | Description |
+|-----------|-------------|
+| `BackgroundBeams` | Ambient animated beam background |
+| `FlipWords` | Smooth word-flip animation |
+| `PlaceholdersAndVanishInput` | Animated input with placeholder morphing |
+| `Sparkles` | Sparkle particle effect |
+| `Spotlight` | Spotlight hover effect |
+| `Lamp` | Illuminated lamp effect |
+| `TypewriterEffect` | Typewriter text animation |
+| `TextGenerateEffect` | Fade-in text reveal |
+| `HoverBorderGradient` | Gradient border on hover |
+
+## 🚀 Getting Started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+### Lint
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠 Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Tech | Version |
+|------|---------|
+| [Next.js](https://nextjs.org/) | 16.0.10 |
+| [React](https://react.dev/) | 19.2.1 |
+| [Tailwind CSS](https://tailwindcss.com/) | v4 |
+| [TypeScript](https://www.typescriptlang.org/) | 5.x |
+| [Framer Motion](https://motion.dev/) | 12.x |
+| [tsparticles](https://particles.js.org/) | 3.x |
+| [Lucide Icons](https://lucide.dev/) | 0.561.x |
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── app/
+│   ├── globals.css          # Tailwind v4 + theme variables
+│   ├── layout.tsx           # Root layout with fonts (Geist + Kanit)
+│   └── page.tsx             # Home page with animated showcase
+├── components/
+│   └── ui/                  # Animated UI components
+│       ├── background-beams.tsx
+│       ├── button.tsx
+│       ├── flip-words.tsx
+│       ├── hover-border-gradient.tsx
+│       ├── lamp.tsx
+│       ├── placeholders-and-vanish-input.tsx
+│       ├── sparkles.tsx
+│       ├── spotlight.tsx
+│       ├── text-generate-effect.tsx
+│       └── typewriter-effect.tsx
+├── lib/
+│   └── utils.ts             # Tailwind merge utility
+├── public/                  # Static assets
+├── .github/
+│   └── copilot-instructions.md  # GitHub Copilot context
+├── next.config.ts
+├── tailwind.config.ts
+└── tsconfig.json
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Customization
+
+- **Fonts**: Supports both Geist (English) and Kanit (Thai) via `next/font`
+- **Dark Mode**: Implemented via CSS `prefers-color-scheme` in `globals.css`
+- **Animated Components**: Fully customizable — tweak colors, durations, and animations in each component file
+
+## 📄 License
+
+MIT
